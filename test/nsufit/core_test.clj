@@ -1,6 +1,6 @@
 (ns nsufit.core-test
   (:require [clojure.test :refer :all]
-            [nsufit.task2 :refer :all]))
+            [nsufit.task21 :refer :all]))
 (run-tests 'untitled2.core-test)
 
 ; for h =0.01

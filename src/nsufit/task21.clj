@@ -1,4 +1,4 @@
-(ns nsufit.task2)
+(ns nsufit.task21)
 
 (defn trapezoid-square
   [x1 x2 h]
