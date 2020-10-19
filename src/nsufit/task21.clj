@@ -23,7 +23,7 @@
      (fn [f h xcur]
       (let [next (- xcur h)]
         ;debug print to see memoization
-        (println "trapezoids-sum(" xcur ")")
+        ;(println "trapezoids-sum(" xcur ")")
          (if (< xcur h)
            0
           (+ (trapezoid-square (f xcur) (f next) h) (trapezoids-sum-mem f h next))
@@ -35,7 +35,7 @@
 
 (defn generic-integral
   [f, integrate-func]
-  (let [h 0.5]
+  (let [h 0.01]
     (fn [x]
       (let [nearest (* h (Math/floor (/ x h))), restx (- x nearest)]
         (+ (integrate-func f h nearest) (trapezoid-square (f nearest) (f x) restx))

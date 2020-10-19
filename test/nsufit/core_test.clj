@@ -1,10 +1,12 @@
 (ns nsufit.core-test
   (:require [clojure.test :refer :all]
-            [nsufit.task21 :refer :all]))
-(run-tests 'untitled2.core-test)
+            [nsufit.task21 :refer :all]
+            [nsufit.task22 :refer :all]
+            ))
+(run-tests 'nsufit.core-test)
 
 ; for h =0.01
-(def epsilon 0.006)
+(def epsilon 0.02)
 
 (deftest linear-test
   (testing "Integral x  is x^2 / 2"
