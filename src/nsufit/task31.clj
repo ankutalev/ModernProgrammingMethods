@@ -18,7 +18,7 @@
 
 (defn my-parallel-filter
   [block-size, f, coll]
-    (mapcat deref (doall (map (fn [block] (future (filter f block))) (my-partition block-size coll))
+    (mapcat deref (doall (map (fn [block] (future (my-filter f block))) (my-partition block-size coll))
   ))
   )
 
