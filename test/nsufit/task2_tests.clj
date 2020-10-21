@@ -1,9 +1,9 @@
-(ns nsufit.core-test
+(ns nsufit.task2_tests
   (:require [clojure.test :refer :all]
             [nsufit.task21 :refer :all]
             [nsufit.task22 :refer :all]
             ))
-(run-tests 'nsufit.core-test)
+(run-tests 'nsufit.task2_tests)
 
 ; for h =0.01
 (def epsilon 0.02)

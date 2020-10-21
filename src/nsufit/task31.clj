@@ -11,9 +11,14 @@
 
 (defn my-filter
   [f collection]
-    (let [h (first collection)]
-       (lazy-seq (if (f h) (conj (my-filter f (rest collection)) h) (my-filter f (rest collection))))
-    )
+  (if (empty? collection)
+    ()
+    (let [h (first collection) tail (lazy-seq (rest collection))]
+      (lazy-seq (if (f h)
+                  (cons h (my-filter f tail))
+                  (my-filter f tail)))
+
+      ))
   )
 
 (defn my-parallel-filter
