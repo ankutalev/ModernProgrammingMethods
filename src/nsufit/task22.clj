@@ -1,36 +1,23 @@
-(ns nsufit.task22)
-
+(ns nsufit.task22
+(:require [nsufit.task21 :refer :all]))
 
 (defn partials
-  ([f, h, x] (partials f h x x 0))
-  ([f, h, x, xcur, prevsquares]
-   (let [fcur (f xcur),
-         hnext (- xcur h),
-         squares (+ fcur prevsquares (f hnext))
-         ]
-     (if (> xcur h)
-       (lazy-seq (cons squares (partials f h x  hnext squares)))
-       (list (* (/ (+ prevsquares fcur) 2) h))
-       )
+  ([f  h]
+     (iterate
+       (fn [[curx acc]]
+         (let [fcur (f curx), nextx (+ curx h)]
+          [nextx (+ acc (trapezoid-square fcur (f nextx) h) )]
+         ))
+       [0  0])
      )
-   )
   )
+
 
 (defn get-integral-partial
   [f]
   (fn [x]
-    (let [h 0.01]
-      (first (take-last 1 (partials f h x)))
+    (let [h 0.01, hcounts (Math/floor (/ x h)), rest (- x (* h hcounts))]
+      (+ (trapezoid-square (f (* h hcounts)) (f x) rest) (second (nth (partials f h) hcounts)))
       )
     )
   )
-
-; Benchmarks for get-integral-partial (h=1)
-;(time (calculus identity get-integral-partial 3000))
-;"Elapsed time: 887.8372 msecs"
-;(time (calculus identity get-integral-partial 3000))
-;"Elapsed time: 818.718 msecs"
-;(time (calculus identity get-integral-partial 4000))
-;"Elapsed time: 1382.0636 msecs"
-;(time (calculus identity get-integral-partial 4000))
-;"Elapsed time: 1359.1425 msecs"
