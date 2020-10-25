@@ -21,9 +21,15 @@
       ))
   )
 
-(defn my-parallel-filter
-  [block-size, f, coll]
-    (mapcat deref (doall (map (fn [block] (future (my-filter f block))) (my-partition block-size coll))
-  ))
+(defn my-pred
+  [x]
+  (println "Sleeping 5 sec At thread" (.getName (Thread/currentThread)))
+  (Thread/sleep 5000)
+  (identity x)
   )
 
+(defn my-parallel-filter
+  [block-size, f, coll]
+  (let [blocks (my-partition block-size coll)]
+    (mapcat deref (doall (map (fn [block] (future (doall (my-filter f block)))) blocks))))
+  )
