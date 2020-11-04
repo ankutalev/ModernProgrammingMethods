@@ -9,7 +9,7 @@
   (lazy-seq (cons 1 (map inc naturals)))
   )
 
-(defn my-pred
+(defn my-pred2
   [x]
   (println "Sleeping 1 sec At thread" (.getName (Thread/currentThread)))
   (Thread/sleep 1000)
