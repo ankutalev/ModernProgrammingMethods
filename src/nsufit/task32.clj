@@ -22,7 +22,7 @@
         blocks (my-lazy-partition block-size coll)
         jobs (take workers blocks)
         rests (drop (reduce + (map count jobs)) coll)
-        result (mapcat deref (doall (map (fn [block] (future (doall (filter f block)))) jobs)))
+        result (lazy-cat (map deref (doall (map (fn [block] (future (doall (filter f block)))) jobs))))
         ]
     (if (empty? rests) result (lazy-cat result (my-parallel-lazy-filter block-size f rests)))
     )
